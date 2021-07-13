@@ -59,13 +59,15 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Indonesi juara dunia halo " />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/authorNewsCategory"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="2dp"
             android:textColor="@color/white"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textSize="10sp"
             app:layout_constraintBottom_toTopOf="@+id/textPublishedCategory"
             app:layout_constraintEnd_toEndOf="parent"
