@@ -4,7 +4,6 @@ import com.dicoding.newsapp.core.data.source.NewsRepository
 import com.dicoding.newsapp.core.domain.repository.INewsRepository
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 

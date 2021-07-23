@@ -70,4 +70,6 @@ class HealthFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

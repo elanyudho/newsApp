@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,17 +19,23 @@ class NetworkModule {
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
+        val hostname = "newsapi.org"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/QZ3EWMoTShshKLrh7BRQtxMgBGc/eFICrmJ9b4o6Jh8=")
+            .add(hostname, "sha256/UmhcQTxjIQ7hbNRvTDeFt5LId41clz5KDOcuyIP+fd4=")
+            .build()
         return OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
             .build()
     }
 
     @Provides
-    fun provideApiService(client: OkHttpClient): ApiService {
+    fun provideApiService(): ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl(ApiVariable.Base_Url)
+            .baseUrl(ApiVariable.baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .client(provideOkHttpClient())
             .build()
