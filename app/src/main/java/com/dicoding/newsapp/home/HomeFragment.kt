@@ -29,6 +29,8 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var categoryPagerAdapter: CategoryPagerAdapter
 
+    private lateinit var newsHeadlineAdapter: NewsHeadlineAdapter
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -53,7 +55,7 @@ class HomeFragment : Fragment() {
 
     private fun getDataHeadline() {
         if (activity != null) {
-            val newsHeadlineAdapter = NewsHeadlineAdapter()
+            newsHeadlineAdapter = NewsHeadlineAdapter()
             newsHeadlineAdapter.onItemClick = { selectedData ->
                 val detailFragment = DetailFragment()
                 val mBundle = Bundle()
@@ -137,8 +139,9 @@ class HomeFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        newsHeadlineAdapter.onItemClick = null
+        super.onDestroyView()
     }
 
 }
