@@ -22,15 +22,14 @@ class BookmarkFragment : Fragment() {
 
     private lateinit var categoryPagerAdapter: CategoryPagerAdapter
 
-    private var _binding: FragmentBookmarkBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentBookmarkBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentBookmarkBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentBookmarkBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,47 +53,51 @@ class BookmarkFragment : Fragment() {
                 BookmarkSportsFragment()
             ), requireActivity()
         )
-        with(binding) {
-            viewPagerCategory.adapter = categoryPagerAdapter
+        with(binding?.viewPagerCategoryBookmark) {
+            this?.adapter = categoryPagerAdapter
 
-            TabLayoutMediator(tabLayoutCategory, viewPagerCategory) {tab, position ->
-                when(position){
-                    0 -> {
-                        tab.text = getString(R.string.headline)
-                    }
-                    1 -> {
-                        tab.text = getString(R.string.business)
-                    }
-                    2 -> {
-                        tab.text = getString(R.string.health)
-                    }
-                    3 -> {
-                        tab.text = getString(R.string.entertainment)
-                    }
-                    4 -> {
-                        tab.text = getString(R.string.technology)
-                    }
-                    5 -> {
-                        tab.text = getString(R.string.science)
-                    }
-                    6 -> {
-                        tab.text = getString(R.string.sports)
-                    }
+            binding?.tabLayoutCategoryBookmark?.let {
+                binding?.viewPagerCategoryBookmark?.let { it1 ->
+                    TabLayoutMediator(it, it1) { tab, position ->
+                        when(position){
+                            0 -> {
+                                tab.text = getString(R.string.headline)
+                            }
+                            1 -> {
+                                tab.text = getString(R.string.business)
+                            }
+                            2 -> {
+                                tab.text = getString(R.string.health)
+                            }
+                            3 -> {
+                                tab.text = getString(R.string.entertainment)
+                            }
+                            4 -> {
+                                tab.text = getString(R.string.technology)
+                            }
+                            5 -> {
+                                tab.text = getString(R.string.science)
+                            }
+                            6 -> {
+                                tab.text = getString(R.string.sports)
+                            }
+                        }
+                    }.attach()
                 }
-            }.attach()
+            }
         }
     }
 
     private fun setTabItems() {
-        with(binding.tabLayoutCategory) {
+        with(binding?.tabLayoutCategoryBookmark) {
             // Set margins
-            setTabsMargin(0, 6.dp, 12.dp, 6.dp)
+            this?.setTabsMargin(0, 6.dp, 12.dp, 6.dp)
         }
     }
 
     override fun onDestroyView() {
-        _binding = null
         super.onDestroyView()
+        binding = null
     }
 
 }

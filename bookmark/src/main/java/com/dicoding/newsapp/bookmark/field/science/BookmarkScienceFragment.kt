@@ -27,15 +27,14 @@ class BookmarkScienceFragment : Fragment() {
         factory
     }
 
-    private var _binding: FragmentBookmarkScienceBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentBookmarkScienceBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentBookmarkScienceBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentBookmarkScienceBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,23 +66,23 @@ class BookmarkScienceFragment : Fragment() {
             bookmarkViewModel.scienceBookmark.observe(viewLifecycleOwner, { dataBookmark ->
                 bookmarkAdapter.setData(dataBookmark)
 
-                binding.imageView2.visibility =
+                binding?.imageView2?.visibility =
                     if (dataBookmark.isNotEmpty()) View.GONE else View.VISIBLE
-                binding.textEmptyBookmark.visibility =
+                binding?.textEmptyBookmark?.visibility =
                     if (dataBookmark.isNotEmpty()) View.GONE else View.VISIBLE
-                binding.rvCategoryBookmark.visibility =
+                binding?.rvCategoryBookmark?.visibility =
                     if (dataBookmark.isNotEmpty()) View.VISIBLE else View.GONE
             })
 
-            with(binding.rvCategoryBookmark) {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = bookmarkAdapter
+            with(binding?.rvCategoryBookmark) {
+                this?.layoutManager = LinearLayoutManager(context)
+                this?.setHasFixedSize(true)
+                this?.adapter = bookmarkAdapter
             }
         }
     }
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 }

@@ -31,15 +31,14 @@ class HomeFragment : Fragment() {
 
     private lateinit var newsHeadlineAdapter: NewsHeadlineAdapter
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentHomeBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,24 +68,24 @@ class HomeFragment : Fragment() {
             homeViewModel.newsHeadline.observe(viewLifecycleOwner, { news ->
                 if (news != null) {
                     when (news) {
-                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                        is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
                         is Resource.Success -> {
-                            binding.progressBar.visibility = View.GONE
+                            binding?.progressBar?.visibility = View.GONE
                             newsHeadlineAdapter.setData(news.data)
                         }
                         is Resource.Error -> {
-                            binding.progressBar.visibility = View.GONE
-                            binding.viewError.tvError.text =
+                            binding?.progressBar?.visibility = View.GONE
+                            binding?.viewError?.tvError?.text =
                                 news.message ?: getString(R.string.oops_something_went_wrong)
                         }
                     }
                 }
             })
 
-            with(binding.rvHeadline) {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = newsHeadlineAdapter
+            with(binding?.rvHeadline) {
+                this?.layoutManager = LinearLayoutManager(context)
+                this?.setHasFixedSize(true)
+                this?.adapter = newsHeadlineAdapter
             }
         }
     }
@@ -102,46 +101,55 @@ class HomeFragment : Fragment() {
                 SportsFragment()
             ), requireActivity()
         )
-        with(binding) {
-            viewPagerCategory.adapter = categoryPagerAdapter
-            viewPagerCategory.setUserInputEnabled(false)
+        with(binding?.viewPagerCategory) {
+            this?.adapter = categoryPagerAdapter
+            this?.setUserInputEnabled(false)
 
-            TabLayoutMediator(tabLayoutCategory, viewPagerCategory) {tab, position ->
-                when(position){
-                    0 -> {
-                        tab.text = getString(R.string.business)
-                    }
-                    1 -> {
-                        tab.text = getString(R.string.health)
-                    }
-                    2 -> {
-                        tab.text = getString(R.string.entertainment)
-                    }
-                    3 -> {
-                        tab.text = getString(R.string.technology)
-                    }
-                    4 -> {
-                        tab.text = getString(R.string.science)
-                    }
-                    5 -> {
-                        tab.text = getString(R.string.sports)
-                    }
+            binding?.tabLayoutCategory?.let {
+                binding?.viewPagerCategory?.let { it1 ->
+                    TabLayoutMediator(it, it1) { tab, position ->
+                        when(position){
+                            0 -> {
+                                tab.text = getString(R.string.business)
+                            }
+                            1 -> {
+                                tab.text = getString(R.string.health)
+                            }
+                            2 -> {
+                                tab.text = getString(R.string.entertainment)
+                            }
+                            3 -> {
+                                tab.text = getString(R.string.technology)
+                            }
+                            4 -> {
+                                tab.text = getString(R.string.science)
+                            }
+                            5 -> {
+                                tab.text = getString(R.string.sports)
+                            }
+                        }
+                    }.attach()
                 }
-            }.attach()
+            }
         }
     }
 
     private fun setTabItems() {
-        with(binding.tabLayoutCategory) {
+        with(binding?.tabLayoutCategory) {
             // Set margins
-            setTabsMargin(0, 6.dp, 12.dp, 6.dp)
+            this?.setTabsMargin(0, 6.dp, 12.dp, 6.dp)
         }
     }
 
     override fun onDestroyView() {
-        _binding = null
-        newsHeadlineAdapter.onItemClick = null
         super.onDestroyView()
+        binding = null
+        newsHeadlineAdapter.onItemClick = null
+        getDataHeadline()
+
+        setCategoryTab()
+
+        setTabItems()
     }
 
 }

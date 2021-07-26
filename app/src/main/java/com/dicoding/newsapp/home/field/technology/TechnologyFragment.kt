@@ -18,15 +18,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class TechnologyFragment : Fragment() {
     private val technologyViewModel: TechnologyViewModel by viewModels()
 
-    private var _binding: FragmentTechnologyBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentTechnologyBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentTechnologyBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentTechnologyBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,28 +45,28 @@ class TechnologyFragment : Fragment() {
             technologyViewModel.technologyNews.observe(viewLifecycleOwner, { news ->
                 if (news != null) {
                     when (news) {
-                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                        is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
                         is Resource.Success -> {
-                            binding.progressBar.visibility = View.GONE
+                            binding?.progressBar?.visibility = View.GONE
                             technologyAdapter.setData(news.data)
                         }
                         is Resource.Error -> {
-                            binding.progressBar.visibility = View.GONE
-                            binding.viewError.tvError.text = news.message ?: getString(R.string.oops_something_went_wrong)
+                            binding?.progressBar?.visibility = View.GONE
+                            binding?.viewError?.tvError?.text = news.message ?: getString(R.string.oops_something_went_wrong)
                         }
                     }
                 }
             })
 
-            with(binding.rvCategory) {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                setHasFixedSize(true)
-                adapter = technologyAdapter
+            with(binding?.rvCategory) {
+                this?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                this?.setHasFixedSize(true)
+                this?.adapter = technologyAdapter
             }
         }
     }
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 }

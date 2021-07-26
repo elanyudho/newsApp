@@ -18,15 +18,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class HealthFragment : Fragment() {
     private val healthViewModel: HealthViewModel by viewModels()
 
-    private var _binding: FragmentHealthBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentHealthBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHealthBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentHealthBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,29 +45,29 @@ class HealthFragment : Fragment() {
             healthViewModel.healthNews.observe(viewLifecycleOwner, { news ->
                 if (news != null) {
                     when (news) {
-                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                        is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
                         is Resource.Success -> {
-                            binding.progressBar.visibility = View.GONE
+                            binding?.progressBar?.visibility = View.GONE
                             healthAdapter.setData(news.data)
                         }
                         is Resource.Error -> {
-                            binding.progressBar.visibility = View.GONE
-                            binding.viewError.tvError.text = news.message ?: getString(R.string.oops_something_went_wrong)
+                            binding?.progressBar?.visibility = View.GONE
+                            binding?.viewError?.tvError?.text = news.message ?: getString(R.string.oops_something_went_wrong)
                         }
                     }
                 }
             })
 
-            with(binding.rvCategory) {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                setHasFixedSize(true)
-                adapter = healthAdapter
+            with(binding?.rvCategory) {
+                this?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                this?.setHasFixedSize(true)
+                this?.adapter = healthAdapter
             }
         }
     }
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 
 

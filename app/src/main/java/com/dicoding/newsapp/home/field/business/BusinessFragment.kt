@@ -19,15 +19,14 @@ class BusinessFragment : Fragment() {
 
     private val businessViewModel: BusinessViewModel by viewModels()
 
-    private var _binding: FragmentBusinessBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentBusinessBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentBusinessBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentBusinessBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,28 +46,28 @@ class BusinessFragment : Fragment() {
             businessViewModel.businessNews.observe(viewLifecycleOwner, { news ->
                 if (news != null) {
                     when (news) {
-                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                        is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
                         is Resource.Success -> {
-                            binding.progressBar.visibility = View.GONE
+                            binding?.progressBar?.visibility = View.GONE
                             businessAdapter.setData(news.data)
                         }
                         is Resource.Error -> {
-                            binding.progressBar.visibility = View.GONE
-                            binding.viewError.tvError.text = news.message ?: getString(R.string.oops_something_went_wrong)
+                            binding?.progressBar?.visibility = View.GONE
+                            binding?.viewError?.tvError?.text = news.message ?: getString(R.string.oops_something_went_wrong)
                         }
                     }
                 }
             })
 
-            with(binding.rvCategory) {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                setHasFixedSize(true)
-                adapter = businessAdapter
+            with(binding?.rvCategory) {
+                this?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                this?.setHasFixedSize(true)
+                this?.adapter = businessAdapter
             }
         }
     }
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 }
