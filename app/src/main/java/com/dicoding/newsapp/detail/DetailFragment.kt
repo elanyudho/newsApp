@@ -31,15 +31,14 @@ class DetailFragment : BottomSheetDialogFragment() {
 
     private val detailViewModel: DetailViewModel by viewModels()
 
-    private var _binding: FragmentDetailBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentDetailBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentDetailBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,15 +71,17 @@ class DetailFragment : BottomSheetDialogFragment() {
 
     private fun showDetailHeadline(detailNews: News?) {
         detailNews?.let {
-            binding.titleDetailNews.text = detailNews.title
-            binding.authorDetailNews.text = detailNews.author
-            binding.publishedAtDetailNews.text = detailNews.publishedAt
-            binding.description.text = detailNews.description
-            Glide.with(requireActivity())
-                .load(detailNews.urlToImage)
-                .into(binding.imageNewsDetail)
+            binding?.titleDetailNews?.text = detailNews.title
+            binding?.authorDetailNews?.text = detailNews.author
+            binding?.publishedAtDetailNews?.text = detailNews.publishedAt
+            binding?.description?.text = detailNews.description
+            binding?.imageNewsDetail?.let { it1 ->
+                Glide.with(requireActivity())
+                    .load(detailNews.urlToImage)
+                    .into(it1)
+            }
 
-            binding.buttonDetail.setOnClickListener {
+            binding?.buttonDetail?.setOnClickListener {
                 val intent = Intent(activity, WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
                 buttonDetail.context.startActivity(intent)
@@ -88,7 +89,7 @@ class DetailFragment : BottomSheetDialogFragment() {
 
             var statusBookmark = detailNews.isBookmark
             setStatusBookmark(statusBookmark)
-            binding.iconBookmark.setOnClickListener {
+            binding?.iconBookmark?.setOnClickListener {
                 statusBookmark = !statusBookmark
                 detailViewModel.setBookmarkNews(detailNews, statusBookmark)
                 setStatusBookmark(statusBookmark)
@@ -98,15 +99,17 @@ class DetailFragment : BottomSheetDialogFragment() {
 
     private fun showDetailBusiness(detailNews: Business?) {
         detailNews?.let {
-            binding.titleDetailNews.text = detailNews.title
-            binding.authorDetailNews.text = detailNews.author
-            binding.publishedAtDetailNews.text = detailNews.publishedAt
-            binding.description.text = detailNews.description
-            Glide.with(requireActivity())
-                .load(detailNews.urlToImage)
-                .into(binding.imageNewsDetail)
+            binding?.titleDetailNews?.text = detailNews.title
+            binding?.authorDetailNews?.text = detailNews.author
+            binding?.publishedAtDetailNews?.text = detailNews.publishedAt
+            binding?.description?.text = detailNews.description
+            binding?.imageNewsDetail?.let { it1 ->
+                Glide.with(requireActivity())
+                    .load(detailNews.urlToImage)
+                    .into(it1)
+            }
 
-            binding.buttonDetail.setOnClickListener {
+            binding?.buttonDetail?.setOnClickListener {
                 val intent = Intent(activity, WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
                 buttonDetail.context.startActivity(intent)
@@ -114,7 +117,7 @@ class DetailFragment : BottomSheetDialogFragment() {
 
             var statusBookmark = detailNews.isBookmark
             setStatusBookmark(statusBookmark)
-            binding.iconBookmark.setOnClickListener {
+            binding?.iconBookmark?.setOnClickListener {
                 statusBookmark = !statusBookmark
                 detailViewModel.setBookmarkBusiness(detailNews, statusBookmark)
                 setStatusBookmark(statusBookmark)
@@ -124,15 +127,17 @@ class DetailFragment : BottomSheetDialogFragment() {
 
     private fun showDetailSports(detailNews: Sports?) {
         detailNews?.let {
-            binding.titleDetailNews.text = detailNews.title
-            binding.authorDetailNews.text = detailNews.author
-            binding.publishedAtDetailNews.text = detailNews.publishedAt
-            binding.description.text = detailNews.description
-            Glide.with(requireActivity())
-                .load(detailNews.urlToImage)
-                .into(binding.imageNewsDetail)
+            binding?.titleDetailNews?.text = detailNews.title
+            binding?.authorDetailNews?.text = detailNews.author
+            binding?.publishedAtDetailNews?.text = detailNews.publishedAt
+            binding?.description?.text = detailNews.description
+            binding?.imageNewsDetail?.let { it1 ->
+                Glide.with(requireActivity())
+                    .load(detailNews.urlToImage)
+                    .into(it1)
+            }
 
-            binding.buttonDetail.setOnClickListener {
+            binding?.buttonDetail?.setOnClickListener {
                 val intent = Intent(activity, WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
                 buttonDetail.context.startActivity(intent)
@@ -140,7 +145,7 @@ class DetailFragment : BottomSheetDialogFragment() {
 
             var statusBookmark = detailNews.isBookmark
             setStatusBookmark(statusBookmark)
-            binding.iconBookmark.setOnClickListener {
+            binding?.iconBookmark?.setOnClickListener {
                 statusBookmark = !statusBookmark
                 detailViewModel.setBookmarkSports(detailNews, statusBookmark)
                 setStatusBookmark(statusBookmark)
@@ -150,15 +155,17 @@ class DetailFragment : BottomSheetDialogFragment() {
 
     private fun showDetailScience(detailNews: Science?) {
         detailNews?.let {
-            binding.titleDetailNews.text = detailNews.title
-            binding.authorDetailNews.text = detailNews.author
-            binding.publishedAtDetailNews.text = detailNews.publishedAt
-            binding.description.text = detailNews.description
-            Glide.with(requireActivity())
-                .load(detailNews.urlToImage)
-                .into(binding.imageNewsDetail)
+            binding?.titleDetailNews?.text = detailNews.title
+            binding?.authorDetailNews?.text = detailNews.author
+            binding?.publishedAtDetailNews?.text = detailNews.publishedAt
+            binding?.description?.text = detailNews.description
+            binding?.imageNewsDetail?.let { it1 ->
+                Glide.with(requireActivity())
+                    .load(detailNews.urlToImage)
+                    .into(it1)
+            }
 
-            binding.buttonDetail.setOnClickListener {
+            binding?.buttonDetail?.setOnClickListener {
                 val intent = Intent(activity, WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
                 buttonDetail.context.startActivity(intent)
@@ -166,7 +173,7 @@ class DetailFragment : BottomSheetDialogFragment() {
 
             var statusBookmark = detailNews.isBookmark
             setStatusBookmark(statusBookmark)
-            binding.iconBookmark.setOnClickListener {
+            binding?.iconBookmark?.setOnClickListener {
                 statusBookmark = !statusBookmark
                 detailViewModel.setBookmarkScience(detailNews, statusBookmark)
                 setStatusBookmark(statusBookmark)
@@ -176,15 +183,17 @@ class DetailFragment : BottomSheetDialogFragment() {
 
     private fun showDetailHealth(detailNews: Health?) {
         detailNews?.let {
-            binding.titleDetailNews.text = detailNews.title
-            binding.authorDetailNews.text = detailNews.author
-            binding.publishedAtDetailNews.text = detailNews.publishedAt
-            binding.description.text = detailNews.description
-            Glide.with(requireActivity())
-                .load(detailNews.urlToImage)
-                .into(binding.imageNewsDetail)
+            binding?.titleDetailNews?.text = detailNews.title
+            binding?.authorDetailNews?.text = detailNews.author
+            binding?.publishedAtDetailNews?.text = detailNews.publishedAt
+            binding?.description?.text = detailNews.description
+            binding?.imageNewsDetail?.let { it1 ->
+                Glide.with(requireActivity())
+                    .load(detailNews.urlToImage)
+                    .into(it1)
+            }
 
-            binding.buttonDetail.setOnClickListener {
+            binding?.buttonDetail?.setOnClickListener {
                 val intent = Intent(activity, WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
                 buttonDetail.context.startActivity(intent)
@@ -192,7 +201,7 @@ class DetailFragment : BottomSheetDialogFragment() {
 
             var statusBookmark = detailNews.isBookmark
             setStatusBookmark(statusBookmark)
-            binding.iconBookmark.setOnClickListener {
+            binding?.iconBookmark?.setOnClickListener {
                 statusBookmark = !statusBookmark
                 detailViewModel.setBookmarkHealth(detailNews, statusBookmark)
                 setStatusBookmark(statusBookmark)
@@ -202,15 +211,17 @@ class DetailFragment : BottomSheetDialogFragment() {
 
     private fun showDetailEntertainment(detailNews: Entertainment?) {
         detailNews?.let {
-            binding.titleDetailNews.text = detailNews.title
-            binding.authorDetailNews.text = detailNews.author
-            binding.publishedAtDetailNews.text = detailNews.publishedAt
-            binding.description.text = detailNews.description
-            Glide.with(requireActivity())
-                .load(detailNews.urlToImage)
-                .into(binding.imageNewsDetail)
+            binding?.titleDetailNews?.text = detailNews.title
+            binding?.authorDetailNews?.text = detailNews.author
+            binding?.publishedAtDetailNews?.text = detailNews.publishedAt
+            binding?.description?.text = detailNews.description
+            binding?.imageNewsDetail?.let { it1 ->
+                Glide.with(requireActivity())
+                    .load(detailNews.urlToImage)
+                    .into(it1)
+            }
 
-            binding.buttonDetail.setOnClickListener {
+            binding?.buttonDetail?.setOnClickListener {
                 val intent = Intent(activity, WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
                 buttonDetail.context.startActivity(intent)
@@ -218,7 +229,7 @@ class DetailFragment : BottomSheetDialogFragment() {
 
             var statusBookmark = detailNews.isBookmark
             setStatusBookmark(statusBookmark)
-            binding.iconBookmark.setOnClickListener {
+            binding?.iconBookmark?.setOnClickListener {
                 statusBookmark = !statusBookmark
                 detailViewModel.setBookmarkEntertainment(detailNews, statusBookmark)
                 setStatusBookmark(statusBookmark)
@@ -228,15 +239,17 @@ class DetailFragment : BottomSheetDialogFragment() {
 
     private fun showDetailTechnology(detailNews: Technology?) {
         detailNews?.let {
-            binding.titleDetailNews.text = detailNews.title
-            binding.authorDetailNews.text = detailNews.author
-            binding.publishedAtDetailNews.text = detailNews.publishedAt
-            binding.description.text = detailNews.description
-            Glide.with(requireActivity())
-                .load(detailNews.urlToImage)
-                .into(binding.imageNewsDetail)
+            binding?.titleDetailNews?.text = detailNews.title
+            binding?.authorDetailNews?.text = detailNews.author
+            binding?.publishedAtDetailNews?.text = detailNews.publishedAt
+            binding?.description?.text = detailNews.description
+            binding?.imageNewsDetail?.let { it1 ->
+                Glide.with(requireActivity())
+                    .load(detailNews.urlToImage)
+                    .into(it1)
+            }
 
-            binding.buttonDetail.setOnClickListener {
+            binding?.buttonDetail?.setOnClickListener {
                 val intent = Intent(activity, WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
                 buttonDetail.context.startActivity(intent)
@@ -245,7 +258,7 @@ class DetailFragment : BottomSheetDialogFragment() {
 
             var statusBookmark = detailNews.isBookmark
             setStatusBookmark(statusBookmark)
-            binding.iconBookmark.setOnClickListener {
+            binding?.iconBookmark?.setOnClickListener {
                 statusBookmark = !statusBookmark
                 detailViewModel.setBookmarkTechnology(detailNews, statusBookmark)
                 setStatusBookmark(statusBookmark)
@@ -255,10 +268,15 @@ class DetailFragment : BottomSheetDialogFragment() {
 
     private fun setStatusBookmark(statusFavorite: Boolean) {
         if (statusFavorite) {
-            binding.iconBookmark.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_bookmark_active))
+            binding?.iconBookmark?.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_bookmark_active))
         } else {
-            binding.iconBookmark.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_bookmark_inactive))
+            binding?.iconBookmark?.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_bookmark_inactive))
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
 }
