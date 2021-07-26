@@ -145,11 +145,6 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         binding = null
         newsHeadlineAdapter.onItemClick = null
-        getDataHeadline()
-
-        setCategoryTab()
-
-        setTabItems()
     }
 
 }
