@@ -14,7 +14,17 @@
     </dist:module>
 
     <application>
-        <activity android:name=".BookmarkActivity"></activity>
+        <activity android:name=".BookmarkActivity"
+            android:label="@string/bookmark"
+            android:parentActivityName="com.dicoding.newsapp.home.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:scheme="newsapp"
+                    android:host="bookmark" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

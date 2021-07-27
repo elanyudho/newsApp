@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.newsapp.MainActivity
+import com.dicoding.newsapp.home.MainActivity
 import com.dicoding.newsapp.R
 import dagger.hilt.android.AndroidEntryPoint
 

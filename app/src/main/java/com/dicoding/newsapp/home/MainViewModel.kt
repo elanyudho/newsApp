@@ -7,6 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(newsUseCase: NewsUseCase): ViewModel() {
+class MainViewModel @Inject constructor(newsUseCase: NewsUseCase): ViewModel() {
     val newsHeadline = newsUseCase.getHeadlineNews().asLiveData()
 }

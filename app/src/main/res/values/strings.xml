@@ -18,6 +18,7 @@
     <string name="oops_something_went_wrong">Oops.. something went wrong</string>
     <string name="news">News</string>
     <string name="title_bookmark">Bookmark</string>
+    <string name="detail_news">Detail News</string>
 
 
 </resources>
