@@ -29,6 +29,8 @@ class BookmarkEntertainmentFragment : Fragment() {
 
     private var binding: FragmentBookmarkEntertainmentBinding? = null
 
+    private var bookmarkAdapter: EntertainmentAdapter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,8 +55,8 @@ class BookmarkEntertainmentFragment : Fragment() {
 
         if (activity != null) {
 
-            val bookmarkAdapter = EntertainmentAdapter()
-            bookmarkAdapter.onItemClick = { selectedData ->
+            bookmarkAdapter = EntertainmentAdapter()
+            bookmarkAdapter?.onItemClick = { selectedData ->
                 val detailFragment = DetailFragment()
                 val mBundle = Bundle()
                 mBundle.putParcelable(DetailFragment.EXTRA_ENTERTAINMENT, selectedData)
@@ -64,7 +66,7 @@ class BookmarkEntertainmentFragment : Fragment() {
             }
 
             bookmarkViewModel.entertainmentBookmark.observe(viewLifecycleOwner, { dataBookmark ->
-                bookmarkAdapter.setData(dataBookmark)
+                bookmarkAdapter?.setData(dataBookmark)
 
                 binding?.imageView2?.visibility =
                     if (dataBookmark.isNotEmpty()) View.GONE else View.VISIBLE
@@ -75,7 +77,7 @@ class BookmarkEntertainmentFragment : Fragment() {
             })
 
             with(binding?.rvCategoryBookmark) {
-                this?.layoutManager = LinearLayoutManager(requireActivity())
+                this?.layoutManager = LinearLayoutManager(requireContext())
                 this?.setHasFixedSize(true)
                 this?.adapter = bookmarkAdapter
             }
@@ -84,6 +86,8 @@ class BookmarkEntertainmentFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding?.rvCategoryBookmark?.let { it.adapter = null }
+        bookmarkAdapter = null
         binding = null
     }
 }

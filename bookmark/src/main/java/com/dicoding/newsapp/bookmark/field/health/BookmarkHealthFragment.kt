@@ -29,6 +29,8 @@ class BookmarkHealthFragment : Fragment() {
 
     private var binding: FragmentBookmarkHealthBinding? = null
 
+    private  var bookmarkAdapter: HealthAdapter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,8 +55,8 @@ class BookmarkHealthFragment : Fragment() {
 
         if (activity != null) {
 
-            val bookmarkAdapter = HealthAdapter()
-            bookmarkAdapter.onItemClick = { selectedData ->
+            bookmarkAdapter = HealthAdapter()
+            bookmarkAdapter?.onItemClick = { selectedData ->
                 val detailFragment = DetailFragment()
                 val mBundle = Bundle()
                 mBundle.putParcelable(DetailFragment.EXTRA_HEALTH, selectedData)
@@ -64,7 +66,7 @@ class BookmarkHealthFragment : Fragment() {
             }
 
             bookmarkViewModel.healthBookmark.observe(viewLifecycleOwner, { dataBookmark ->
-                bookmarkAdapter.setData(dataBookmark)
+                bookmarkAdapter?.setData(dataBookmark)
 
                 binding?.imageView2?.visibility =
                     if (dataBookmark.isNotEmpty()) View.GONE else View.VISIBLE
@@ -75,7 +77,7 @@ class BookmarkHealthFragment : Fragment() {
             })
 
             with(binding?.rvCategoryBookmark) {
-                this?.layoutManager = LinearLayoutManager(context)
+                this?.layoutManager = LinearLayoutManager(requireContext())
                 this?.setHasFixedSize(true)
                 this?.adapter = bookmarkAdapter
             }
@@ -84,6 +86,8 @@ class BookmarkHealthFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding?.rvCategoryBookmark?.let { it.adapter = null }
+        bookmarkAdapter = null
         binding = null
     }
 }

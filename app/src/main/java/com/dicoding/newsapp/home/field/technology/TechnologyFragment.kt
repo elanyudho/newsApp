@@ -20,6 +20,12 @@ class TechnologyFragment : Fragment() {
 
     private var binding: FragmentTechnologyBinding? = null
 
+    private var technologyAdapter: TechnologyCategoryAdapter? = null
+
+    private var detailFragment: DetailFragment? = null
+
+    private var mBundle: Bundle? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,43 +36,47 @@ class TechnologyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (activity != null) {
-            val technologyAdapter = TechnologyCategoryAdapter()
-            technologyAdapter.onItemClick = { selectedData ->
-                val detailFragment = DetailFragment()
-                val mBundle = Bundle()
-                mBundle.putParcelable(DetailFragment.EXTRA_TECHNOLOGY, selectedData)
-                detailFragment.arguments = mBundle
 
-                detailFragment.show(childFragmentManager, "TAG")
+        technologyAdapter = TechnologyCategoryAdapter()
+        technologyAdapter?.onItemClick = { selectedData ->
+            detailFragment = DetailFragment()
+            mBundle = Bundle()
+            mBundle?.putParcelable(DetailFragment.EXTRA_TECHNOLOGY, selectedData)
+            detailFragment?.arguments = mBundle
 
-            }
+            detailFragment?.show(childFragmentManager, "TAG")
 
-            technologyViewModel.technologyNews.observe(viewLifecycleOwner, { news ->
-                if (news != null) {
-                    when (news) {
-                        is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
-                        is Resource.Success -> {
-                            binding?.progressBar?.visibility = View.GONE
-                            technologyAdapter.setData(news.data)
-                        }
-                        is Resource.Error -> {
-                            binding?.progressBar?.visibility = View.GONE
-                            binding?.viewError?.tvError?.text = news.message ?: getString(R.string.oops_something_went_wrong)
-                        }
+        }
+
+        technologyViewModel.technologyNews.observe(viewLifecycleOwner, { news ->
+            if (news != null) {
+                when (news) {
+                    is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        technologyAdapter?.setData(news.data)
+                    }
+                    is Resource.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        binding?.viewError?.tvError?.text = news.message ?: getString(R.string.oops_something_went_wrong)
                     }
                 }
-            })
-
-            with(binding?.rvCategory) {
-                this?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                this?.setHasFixedSize(true)
-                this?.adapter = technologyAdapter
             }
+        })
+
+        with(binding?.rvCategory) {
+            this?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            this?.setHasFixedSize(true)
+            this?.adapter = technologyAdapter
         }
     }
     override fun onDestroyView() {
         super.onDestroyView()
+        binding?.rvCategory?.let { it.adapter = null }
+        requireActivity().setActionBar(null)
+        detailFragment = null
+        mBundle = null
+        technologyAdapter = null
         binding = null
     }
 }

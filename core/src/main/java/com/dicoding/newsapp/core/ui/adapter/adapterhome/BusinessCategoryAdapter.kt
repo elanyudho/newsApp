@@ -55,4 +55,5 @@ class BusinessCategoryAdapter: RecyclerView.Adapter<BusinessCategoryAdapter.List
     override fun getItemCount(): Int {
         return listData.size
     }
+
 }

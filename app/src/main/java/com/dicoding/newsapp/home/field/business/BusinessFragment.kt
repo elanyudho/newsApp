@@ -13,6 +13,7 @@ import com.dicoding.newsapp.core.ui.adapter.adapterhome.BusinessCategoryAdapter
 import com.dicoding.newsapp.databinding.FragmentBusinessBinding
 import com.dicoding.newsapp.detail.DetailFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_home.*
 
 @AndroidEntryPoint
 class BusinessFragment : Fragment() {
@@ -20,6 +21,12 @@ class BusinessFragment : Fragment() {
     private val businessViewModel: BusinessViewModel by viewModels()
 
     private var binding: FragmentBusinessBinding? = null
+
+    private var businessAdapter: BusinessCategoryAdapter? = null
+
+    private var detailFragment: DetailFragment? = null
+
+    private var mBundle: Bundle? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,43 +38,49 @@ class BusinessFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (activity != null) {
-            val businessAdapter = BusinessCategoryAdapter()
-            businessAdapter.onItemClick = { selectedData ->
-                val detailFragment = DetailFragment()
-                val mBundle = Bundle()
-                mBundle.putParcelable(DetailFragment.EXTRA_BUSINESS, selectedData)
-                detailFragment.arguments = mBundle
 
-                detailFragment.show(childFragmentManager, "TAG")
+        businessAdapter = BusinessCategoryAdapter()
+        businessAdapter?.onItemClick = { selectedData ->
+            detailFragment = DetailFragment()
+            mBundle = Bundle()
+            mBundle?.putParcelable(DetailFragment.EXTRA_BUSINESS, selectedData)
+            detailFragment?.arguments = mBundle
 
-            }
+            detailFragment?.show(childFragmentManager, "TAG")
 
-            businessViewModel.businessNews.observe(viewLifecycleOwner, { news ->
-                if (news != null) {
-                    when (news) {
-                        is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
-                        is Resource.Success -> {
-                            binding?.progressBar?.visibility = View.GONE
-                            businessAdapter.setData(news.data)
-                        }
-                        is Resource.Error -> {
-                            binding?.progressBar?.visibility = View.GONE
-                            binding?.viewError?.tvError?.text = news.message ?: getString(R.string.oops_something_went_wrong)
-                        }
+        }
+
+        businessViewModel.businessNews.observe(viewLifecycleOwner, { news ->
+            if (news != null) {
+                when (news) {
+                    is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        businessAdapter?.setData(news.data)
+                    }
+                    is Resource.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        binding?.viewError?.tvError?.text = news.message ?: getString(R.string.oops_something_went_wrong)
                     }
                 }
-            })
-
-            with(binding?.rvCategory) {
-                this?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                this?.setHasFixedSize(true)
-                this?.adapter = businessAdapter
             }
+        })
+
+        with(binding?.rvCategory) {
+            this?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            this?.setHasFixedSize(true)
+            this?.adapter = businessAdapter
         }
     }
     override fun onDestroyView() {
         super.onDestroyView()
+        binding?.rvCategory?.let { it.adapter = null }
+        requireActivity().setActionBar(null)
+        detailFragment = null
+        mBundle = null
+        businessAdapter = null
+        businessViewModel.businessNews.removeObservers(viewLifecycleOwner)
         binding = null
     }
+
 }

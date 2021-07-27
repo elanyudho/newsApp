@@ -24,6 +24,8 @@ class BookmarkFragment : Fragment() {
 
     private var binding: FragmentBookmarkBinding? = null
 
+    private var tabLayoutMediator: TabLayoutMediator? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,7 +53,7 @@ class BookmarkFragment : Fragment() {
                 BookmarkTechnologyFragment(),
                 BookmarkScienceFragment(),
                 BookmarkSportsFragment()
-            ), requireActivity()
+            ), childFragmentManager,viewLifecycleOwner.lifecycle
         )
         with(binding?.viewPagerCategoryBookmark) {
             this?.adapter = categoryPagerAdapter
@@ -97,6 +99,9 @@ class BookmarkFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding?.viewPagerCategoryBookmark?.let { it.adapter = null }
+        tabLayoutMediator?.detach()
+        tabLayoutMediator = null
         binding = null
     }
 

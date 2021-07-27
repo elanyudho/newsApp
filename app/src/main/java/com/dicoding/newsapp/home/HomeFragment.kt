@@ -1,5 +1,6 @@
 package com.dicoding.newsapp.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,9 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var categoryPagerAdapter: CategoryPagerAdapter
 
-    private lateinit var newsHeadlineAdapter: NewsHeadlineAdapter
+    private var newsHeadlineAdapter: NewsHeadlineAdapter? = null
+
+    private var tabLayoutMediator: TabLayoutMediator? = null
 
     private var binding: FragmentHomeBinding? = null
 
@@ -53,40 +56,39 @@ class HomeFragment : Fragment() {
     }
 
     private fun getDataHeadline() {
-        if (activity != null) {
-            newsHeadlineAdapter = NewsHeadlineAdapter()
-            newsHeadlineAdapter.onItemClick = { selectedData ->
-                val detailFragment = DetailFragment()
-                val mBundle = Bundle()
-                mBundle.putParcelable(DetailFragment.EXTRA_HEADLINE, selectedData)
-                detailFragment.arguments = mBundle
 
-                detailFragment.show(childFragmentManager, "TAG")
+        newsHeadlineAdapter = NewsHeadlineAdapter()
+        newsHeadlineAdapter?.onItemClick = { selectedData ->
+            val detailFragment = DetailFragment()
+            val mBundle = Bundle()
+            mBundle.putParcelable(DetailFragment.EXTRA_HEADLINE, selectedData)
+            detailFragment.arguments = mBundle
 
-            }
+            detailFragment.show(childFragmentManager, "TAG")
 
-            homeViewModel.newsHeadline.observe(viewLifecycleOwner, { news ->
-                if (news != null) {
-                    when (news) {
-                        is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
-                        is Resource.Success -> {
-                            binding?.progressBar?.visibility = View.GONE
-                            newsHeadlineAdapter.setData(news.data)
-                        }
-                        is Resource.Error -> {
-                            binding?.progressBar?.visibility = View.GONE
-                            binding?.viewError?.tvError?.text =
-                                news.message ?: getString(R.string.oops_something_went_wrong)
-                        }
+        }
+
+        homeViewModel.newsHeadline.observe(viewLifecycleOwner, { news ->
+            if (news != null) {
+                when (news) {
+                    is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        newsHeadlineAdapter?.setData(news.data)
+                    }
+                    is Resource.Error -> {
+                        binding?.progressBar?.visibility = View.GONE
+                        binding?.viewError?.tvError?.text =
+                            news.message ?: getString(R.string.oops_something_went_wrong)
                     }
                 }
-            })
-
-            with(binding?.rvHeadline) {
-                this?.layoutManager = LinearLayoutManager(context)
-                this?.setHasFixedSize(true)
-                this?.adapter = newsHeadlineAdapter
             }
+        })
+
+        with(binding?.rvHeadline) {
+            this?.layoutManager = LinearLayoutManager(requireContext())
+            this?.setHasFixedSize(true)
+            this?.adapter = newsHeadlineAdapter
         }
     }
 
@@ -99,7 +101,7 @@ class HomeFragment : Fragment() {
                 TechnologyFragment(),
                 ScienceFragment(),
                 SportsFragment()
-            ), requireActivity()
+            ), childFragmentManager, viewLifecycleOwner.lifecycle
         )
         with(binding?.viewPagerCategory) {
             this?.adapter = categoryPagerAdapter
@@ -107,7 +109,7 @@ class HomeFragment : Fragment() {
 
             binding?.tabLayoutCategory?.let {
                 binding?.viewPagerCategory?.let { it1 ->
-                    TabLayoutMediator(it, it1) { tab, position ->
+                  tabLayoutMediator = TabLayoutMediator(it, it1) { tab, position ->
                         when(position){
                             0 -> {
                                 tab.text = getString(R.string.business)
@@ -128,7 +130,7 @@ class HomeFragment : Fragment() {
                                 tab.text = getString(R.string.sports)
                             }
                         }
-                    }.attach()
+                    }.apply { attach() }
                 }
             }
         }
@@ -143,8 +145,12 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding?.viewPagerCategory?.let { it.adapter = null }
+        binding?.rvHeadline?.let { it.adapter = null }
+        newsHeadlineAdapter = null
+        tabLayoutMediator?.detach()
+        tabLayoutMediator = null
         binding = null
-        newsHeadlineAdapter.onItemClick = null
     }
 
 }

@@ -14,7 +14,6 @@ import com.dicoding.newsapp.bookmark.databinding.FragmentBookmarkBusinessBinding
 import com.dicoding.newsapp.core.ui.adapter.adapterbookmark.BusinessAdapter
 import com.dicoding.newsapp.detail.DetailFragment
 import com.dicoding.newsapp.di.BookmarkModuleDependencies
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
@@ -26,6 +25,7 @@ class BookmarkBusinessFragment : Fragment() {
     private val bookmarkViewModel: BookmarkViewModel by viewModels() {
         factory
     }
+    private var bookmarkAdapter: BusinessAdapter? = null
 
     private var binding: FragmentBookmarkBusinessBinding? = null
 
@@ -36,6 +36,7 @@ class BookmarkBusinessFragment : Fragment() {
         binding = FragmentBookmarkBusinessBinding.inflate(inflater, container, false)
         return binding?.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,12 +51,11 @@ class BookmarkBusinessFragment : Fragment() {
             )
             .build()
             .injectBusiness(this)
-        super.onCreate(savedInstanceState)
 
         if (activity != null) {
 
-            val bookmarkAdapter = BusinessAdapter()
-            bookmarkAdapter.onItemClick = { selectedData ->
+            bookmarkAdapter = BusinessAdapter()
+            bookmarkAdapter?.onItemClick = { selectedData ->
                 val detailFragment = DetailFragment()
                 val mBundle = Bundle()
                 mBundle.putParcelable(DetailFragment.EXTRA_BUSINESS, selectedData)
@@ -65,7 +65,7 @@ class BookmarkBusinessFragment : Fragment() {
             }
 
             bookmarkViewModel.businessBookmark.observe(viewLifecycleOwner, { dataBookmark ->
-                bookmarkAdapter.setData(dataBookmark)
+                bookmarkAdapter?.setData(dataBookmark)
                 binding?.imageView2?.visibility =
                     if (dataBookmark.isNotEmpty()) View.GONE else View.VISIBLE
                 binding?.textEmptyBookmark?.visibility =
@@ -75,14 +75,17 @@ class BookmarkBusinessFragment : Fragment() {
             })
 
             with(binding?.rvCategoryBookmark) {
-                this?.layoutManager = LinearLayoutManager(context)
+                this?.layoutManager = LinearLayoutManager(requireContext())
                 this?.setHasFixedSize(true)
                 this?.adapter = bookmarkAdapter
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        binding?.rvCategoryBookmark?.let { it.adapter = null }
+        bookmarkAdapter = null
         binding = null
     }
 }

@@ -76,15 +76,15 @@ class DetailFragment : BottomSheetDialogFragment() {
             binding?.publishedAtDetailNews?.text = detailNews.publishedAt
             binding?.description?.text = detailNews.description
             binding?.imageNewsDetail?.let { it1 ->
-                Glide.with(requireActivity())
+                Glide.with(requireContext())
                     .load(detailNews.urlToImage)
                     .into(it1)
             }
 
             binding?.buttonDetail?.setOnClickListener {
-                val intent = Intent(activity, WebviewActivity::class.java)
+                val intent = Intent(requireContext(), WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
-                buttonDetail.context.startActivity(intent)
+                requireContext().startActivity(intent)
             }
 
             var statusBookmark = detailNews.isBookmark
@@ -104,15 +104,15 @@ class DetailFragment : BottomSheetDialogFragment() {
             binding?.publishedAtDetailNews?.text = detailNews.publishedAt
             binding?.description?.text = detailNews.description
             binding?.imageNewsDetail?.let { it1 ->
-                Glide.with(requireActivity())
+                Glide.with(requireContext())
                     .load(detailNews.urlToImage)
                     .into(it1)
             }
 
             binding?.buttonDetail?.setOnClickListener {
-                val intent = Intent(activity, WebviewActivity::class.java)
+                val intent = Intent(requireContext(), WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
-                buttonDetail.context.startActivity(intent)
+                requireContext().startActivity(intent)
             }
 
             var statusBookmark = detailNews.isBookmark
@@ -132,15 +132,15 @@ class DetailFragment : BottomSheetDialogFragment() {
             binding?.publishedAtDetailNews?.text = detailNews.publishedAt
             binding?.description?.text = detailNews.description
             binding?.imageNewsDetail?.let { it1 ->
-                Glide.with(requireActivity())
+                Glide.with(requireContext())
                     .load(detailNews.urlToImage)
                     .into(it1)
             }
 
             binding?.buttonDetail?.setOnClickListener {
-                val intent = Intent(activity, WebviewActivity::class.java)
+                val intent = Intent(requireContext(), WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
-                buttonDetail.context.startActivity(intent)
+                requireContext().startActivity(intent)
             }
 
             var statusBookmark = detailNews.isBookmark
@@ -160,15 +160,15 @@ class DetailFragment : BottomSheetDialogFragment() {
             binding?.publishedAtDetailNews?.text = detailNews.publishedAt
             binding?.description?.text = detailNews.description
             binding?.imageNewsDetail?.let { it1 ->
-                Glide.with(requireActivity())
+                Glide.with(requireContext())
                     .load(detailNews.urlToImage)
                     .into(it1)
             }
 
             binding?.buttonDetail?.setOnClickListener {
-                val intent = Intent(activity, WebviewActivity::class.java)
+                val intent = Intent(requireContext(), WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
-                buttonDetail.context.startActivity(intent)
+                requireContext().startActivity(intent)
             }
 
             var statusBookmark = detailNews.isBookmark
@@ -188,15 +188,15 @@ class DetailFragment : BottomSheetDialogFragment() {
             binding?.publishedAtDetailNews?.text = detailNews.publishedAt
             binding?.description?.text = detailNews.description
             binding?.imageNewsDetail?.let { it1 ->
-                Glide.with(requireActivity())
+                Glide.with(requireContext())
                     .load(detailNews.urlToImage)
                     .into(it1)
             }
 
             binding?.buttonDetail?.setOnClickListener {
-                val intent = Intent(activity, WebviewActivity::class.java)
+                val intent = Intent(requireContext(), WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
-                buttonDetail.context.startActivity(intent)
+                requireContext().startActivity(intent)
             }
 
             var statusBookmark = detailNews.isBookmark
@@ -216,15 +216,15 @@ class DetailFragment : BottomSheetDialogFragment() {
             binding?.publishedAtDetailNews?.text = detailNews.publishedAt
             binding?.description?.text = detailNews.description
             binding?.imageNewsDetail?.let { it1 ->
-                Glide.with(requireActivity())
+                Glide.with(requireContext())
                     .load(detailNews.urlToImage)
                     .into(it1)
             }
 
             binding?.buttonDetail?.setOnClickListener {
-                val intent = Intent(activity, WebviewActivity::class.java)
+                val intent = Intent(requireContext(), WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
-                buttonDetail.context.startActivity(intent)
+                requireContext().startActivity(intent)
             }
 
             var statusBookmark = detailNews.isBookmark
@@ -244,15 +244,15 @@ class DetailFragment : BottomSheetDialogFragment() {
             binding?.publishedAtDetailNews?.text = detailNews.publishedAt
             binding?.description?.text = detailNews.description
             binding?.imageNewsDetail?.let { it1 ->
-                Glide.with(requireActivity())
+                Glide.with(requireContext())
                     .load(detailNews.urlToImage)
                     .into(it1)
             }
 
             binding?.buttonDetail?.setOnClickListener {
-                val intent = Intent(activity, WebviewActivity::class.java)
+                val intent = Intent(requireContext(), WebviewActivity::class.java)
                 intent.putExtra(WebviewActivity.EXTRA_NEWS, detailNews.url)
-                buttonDetail.context.startActivity(intent)
+                requireContext().startActivity(intent)
             }
 
 
@@ -268,9 +268,9 @@ class DetailFragment : BottomSheetDialogFragment() {
 
     private fun setStatusBookmark(statusFavorite: Boolean) {
         if (statusFavorite) {
-            binding?.iconBookmark?.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_bookmark_active))
+            binding?.iconBookmark?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_bookmark_active))
         } else {
-            binding?.iconBookmark?.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_bookmark_inactive))
+            binding?.iconBookmark?.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_bookmark_inactive))
         }
     }
 
