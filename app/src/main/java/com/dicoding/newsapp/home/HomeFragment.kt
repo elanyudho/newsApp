@@ -9,18 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.newsapp.R
 import com.dicoding.newsapp.core.data.source.Resource
-import com.dicoding.newsapp.core.ui.adapter.CategoryPagerAdapter
-import com.dicoding.newsapp.core.ui.adapter.adapterbookmark.NewsHeadlineAdapter
-import com.dicoding.newsapp.core.utils.dp
+import com.dicoding.newsapp.core.ui.adapter.NewsHeadlineAdapter
 import com.dicoding.newsapp.databinding.FragmentHomeBinding
 import com.dicoding.newsapp.detail.DetailFragment
-import com.dicoding.newsapp.home.field.business.BusinessFragment
-import com.dicoding.newsapp.home.field.entertainment.EntertainmentFragment
-import com.dicoding.newsapp.home.field.health.HealthFragment
-import com.dicoding.newsapp.home.field.science.ScienceFragment
-import com.dicoding.newsapp.home.field.sports.SportsFragment
-import com.dicoding.newsapp.home.field.technology.TechnologyFragment
-import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -88,53 +79,6 @@ class HomeFragment : Fragment() {
                 setHasFixedSize(true)
                 adapter = newsHeadlineAdapter
             }
-        }
-    }
-
-    private fun setCategoryTab() {
-        categoryPagerAdapter = CategoryPagerAdapter(
-            listOf(
-                BusinessFragment(),
-                HealthFragment(),
-                EntertainmentFragment(),
-                TechnologyFragment(),
-                ScienceFragment(),
-                SportsFragment()
-            ), requireActivity()
-        )
-        with(binding) {
-            viewPagerCategory.adapter = categoryPagerAdapter
-            viewPagerCategory.setUserInputEnabled(false)
-
-            TabLayoutMediator(tabLayoutCategory, viewPagerCategory) {tab, position ->
-                when(position){
-                    0 -> {
-                        tab.text = getString(R.string.business)
-                    }
-                    1 -> {
-                        tab.text = getString(R.string.health)
-                    }
-                    2 -> {
-                        tab.text = getString(R.string.entertainment)
-                    }
-                    3 -> {
-                        tab.text = getString(R.string.technology)
-                    }
-                    4 -> {
-                        tab.text = getString(R.string.science)
-                    }
-                    5 -> {
-                        tab.text = getString(R.string.sports)
-                    }
-                }
-            }.attach()
-        }
-    }
-
-    private fun setTabItems() {
-        with(binding.tabLayoutCategory) {
-            // Set margins
-            setTabsMargin(0, 6.dp, 12.dp, 6.dp)
         }
     }
 

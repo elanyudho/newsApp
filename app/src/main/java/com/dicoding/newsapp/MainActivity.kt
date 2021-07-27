@@ -23,16 +23,6 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
-
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_news, R.id.navigation_bookmark))
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-        bottomNavigationView.setupWithNavController(navController)
-
-        val actionBar: ActionBar? = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
 }

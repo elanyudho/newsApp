@@ -6,15 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.newsapp.bookmark.BookmarkViewModel
 import com.dicoding.newsapp.bookmark.DaggerBookmarkComponent
 import com.dicoding.newsapp.bookmark.ViewModelFactory
 import com.dicoding.newsapp.bookmark.databinding.FragmentBookmarkNewsHeadlineBinding
-import com.dicoding.newsapp.core.ui.adapter.adapterbookmark.NewsHeadlineAdapter
+import com.dicoding.newsapp.core.ui.adapter.NewsHeadlineAdapter
 import com.dicoding.newsapp.detail.DetailFragment
 import com.dicoding.newsapp.di.BookmarkModuleDependencies
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
