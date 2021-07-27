@@ -1,4 +1,4 @@
-package com.dicoding.newsapp.home.field.health
+package com.dicoding.newsapp.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -7,6 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HealthViewModel @Inject constructor(newsUseCase: NewsUseCase): ViewModel() {
-    val healthNews = newsUseCase.getHealthNews().asLiveData()
+class MainViewModel @Inject constructor(newsUseCase: NewsUseCase): ViewModel() {
+    val newsHeadline = newsUseCase.getHeadlineNews().asLiveData()
 }

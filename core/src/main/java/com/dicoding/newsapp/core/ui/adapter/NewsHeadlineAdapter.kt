@@ -1,4 +1,4 @@
-package com.dicoding.newsapp.core.ui.adapter.adapterbookmark
+package com.dicoding.newsapp.core.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.newsapp.core.R
 import com.dicoding.newsapp.core.databinding.ItemHeadlineListBinding
-import com.dicoding.newsapp.core.domain.model.Technology
+import com.dicoding.newsapp.core.domain.model.News
 import java.util.ArrayList
 
-class TechnologyAdapter: RecyclerView.Adapter<TechnologyAdapter.ListViewHolder>() {
+class NewsHeadlineAdapter: RecyclerView.Adapter<NewsHeadlineAdapter.ListViewHolder>() {
 
-    private var listData = ArrayList<Technology>()
-    var onItemClick: ((Technology) -> Unit)? = null
+    private var listData = ArrayList<News>()
+    var onItemClick: ((News) -> Unit)? = null
 
-    fun setData(newListData: List<Technology>?) {
+    fun setData(newListData: List<News>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -24,7 +24,7 @@ class TechnologyAdapter: RecyclerView.Adapter<TechnologyAdapter.ListViewHolder>(
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemHeadlineListBinding.bind(itemView)
-        fun bind(data: Technology){
+        fun bind(data: News){
             with(binding) {
                 Glide.with(itemView.context)
                     .load(data.urlToImage)
