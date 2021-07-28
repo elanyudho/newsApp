@@ -58,7 +58,7 @@ class BookmarkActivity : AppCompatActivity() {
         bookmarkViewModel.newsBookmark.observe(this, { dataBookmark ->
             bookmarkAdapter.setData(dataBookmark)
 
-            binding?.imageView2?.visibility =
+            binding?.lottieAnimationView?.visibility =
                 if (dataBookmark.isNotEmpty()) View.GONE else View.VISIBLE
             binding?.textEmptyBookmark?.visibility =
                 if (dataBookmark.isNotEmpty()) View.GONE else View.VISIBLE

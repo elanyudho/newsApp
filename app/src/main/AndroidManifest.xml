@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewsApp">
         <activity android:name=".detail.DetailActivity"
-            android:parentActivityName=".home.MainActivity"
             android:label="@string/detail_news"/>
         <activity android:name=".webview.WebviewActivity" />
         <activity
