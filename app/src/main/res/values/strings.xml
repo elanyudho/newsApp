@@ -5,13 +5,6 @@
     <string name="bookmark">Bookmark</string>
     <string name="no_news_bookmarked">No news bookmarked</string>
     <string name="headline">Headline</string>
-    <string name="category">Category</string>
-    <string name="business">Business</string>
-    <string name="entertainment">Entertainment</string>
-    <string name="health">Health</string>
-    <string name="science">Science</string>
-    <string name="sports">Sports</string>
-    <string name="technology">Technology</string>
     <string name="news_app">News App</string>
     <string name="click_this_button_for_detail">Click for detail</string>
     <string name="feed">Feed</string>
@@ -19,6 +12,7 @@
     <string name="news">News</string>
     <string name="title_bookmark">Bookmark</string>
     <string name="detail_news">Detail News</string>
+    <string name="error">error</string>
 
 
 </resources>

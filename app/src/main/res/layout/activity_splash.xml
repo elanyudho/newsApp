@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_cobalt"
     tools:context=".splash.SplashActivity">
 
     <ImageView
@@ -15,7 +14,8 @@
         android:layout_marginTop="200dp"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="375dp"
-        android:src="@drawable/ic_baseline_library_books_24"
+        android:src="@drawable/ic_news"
+        android:contentDescription="@string/news"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -27,8 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/news_app"
-        android:textColor="@color/white"
-        android:textSize="40dp"
+        android:textColor="@color/blue_cobalt"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

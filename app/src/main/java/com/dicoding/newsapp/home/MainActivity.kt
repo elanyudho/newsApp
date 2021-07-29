@@ -15,7 +15,6 @@ import com.dicoding.newsapp.databinding.ActivityMainBinding
 import com.dicoding.newsapp.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_detail.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

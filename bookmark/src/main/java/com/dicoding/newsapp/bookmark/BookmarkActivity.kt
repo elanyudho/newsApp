@@ -19,7 +19,7 @@ class BookmarkActivity : AppCompatActivity() {
     @Inject
     lateinit var factory: ViewModelFactory
 
-    private val bookmarkViewModel: BookmarkViewModel by viewModels(){
+    private val bookmarkViewModel: BookmarkViewModel by viewModels {
         factory
     }
 

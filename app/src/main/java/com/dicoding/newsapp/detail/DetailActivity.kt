@@ -11,7 +11,7 @@ import com.dicoding.newsapp.core.domain.model.News
 import com.dicoding.newsapp.databinding.ActivityDetailBinding
 import com.dicoding.newsapp.webview.WebviewActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_detail.*
+
 
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
